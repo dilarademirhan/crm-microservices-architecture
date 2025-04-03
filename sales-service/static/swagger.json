@@ -1,0 +1,144 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sales Service API",
+    "version": "1.0.0",
+    "description": "Satış servisi için API dokümantasyonu"
+  },
+  "paths": {
+    "/api/sales/": {
+      "get": {
+        "summary": "Tüm satışları getir",
+        "tags": ["Sales"],
+        "responses": {
+          "200": {
+            "description": "Satış listesi başarıyla getirildi"
+          },
+          "500": {
+            "description": "Sunucu hatası"
+          }
+        }
+      },
+      "post": {
+        "summary": "Yeni satış oluştur",
+        "tags": ["Sales"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Yeni satış verileri",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customer_id": { "type": "string", "format": "uuid" },
+                "name": { "type": "string" },
+                "product": { "type": "string" },
+                "amount": { "type": "number" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Satış başarıyla oluşturuldu"
+          },
+          "400": {
+            "description": "Eksik veri girdiniz!"
+          },
+          "500": {
+            "description": "Sunucu hatası"
+          }
+        }
+      }
+    },
+    "/api/sales/{sale_id}": {
+      "get": {
+        "summary": "Belirtilen satış bilgisini getir",
+        "tags": ["Sales"],
+        "parameters": [
+          {
+            "name": "sale_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Satış başarıyla getirildi"
+          },
+          "404": {
+            "description": "Satış bulunamadı"
+          },
+          "500": {
+            "description": "Sunucu hatası"
+          }
+        }
+      }
+    },
+    "/api/sales/sale-stages": {
+      "post": {
+        "summary": "Yeni satış aşaması oluştur",
+        "tags": ["Sales Stages"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Yeni satış aşaması verileri",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sale_id": { "type": "string", "format": "uuid" },
+                "name": { "type": "string" },
+                "notes": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Satış aşaması başarıyla oluşturuldu"
+          },
+          "400": {
+            "description": "Eksik veri girdiniz!"
+          },
+          "404": {
+            "description": "Satış bulunamadı"
+          },
+          "500": {
+            "description": "Sunucu hatası"
+          }
+        }
+      }
+    },
+    "/api/sales/{sale_id}/last-stage": {
+      "get": {
+        "summary": "Belirtilen satışın son aşamasını getir",
+        "tags": ["Sales Stages"],
+        "parameters": [
+          {
+            "name": "sale_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Son aşama başarıyla getirildi"
+          },
+          "404": {
+            "description": "Bu satış için aşama bulunamadı"
+          },
+          "500": {
+            "description": "Sunucu hatası"
+          }
+        }
+      }
+    }
+  }
+}

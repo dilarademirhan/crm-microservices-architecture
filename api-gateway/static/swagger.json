@@ -1,0 +1,402 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "CRM API Gateway",
+      "description": "API Gateway for CRM Microservices",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://127.0.0.1:5003",
+        "description": "Local development server"
+      }
+    ],
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    },
+    "paths": {
+      "/api/auth/register": {
+        "post": {
+          "tags": ["Authentication"],
+          "summary": "Register a new user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User registered successfully"
+            }
+          }
+        }
+      },
+      "/api/auth/login": {
+        "post": {
+          "tags": ["Authentication"],
+          "summary": "Login user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Login successful"
+            }
+          }
+        }
+      },
+      "/api/auth/me": {
+        "get": {
+          "tags": ["Authentication"],
+          "summary": "Get current user information",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Current user information"
+            }
+          }
+        }
+      },
+      "/api/auth/users": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Get all users",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of users"
+            }
+          }
+        }
+      },
+      "/api/auth/users/{user_id}": {
+        "put": {
+          "tags": ["Users"],
+          "summary": "Update user",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User updated successfully"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Users"],
+          "summary": "Delete user",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User deleted successfully"
+            }
+          }
+        }
+      },
+      "/api/customers": {
+        "get": {
+          "tags": ["Customers"],
+          "summary": "Get all customers",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of customers"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Customers"],
+          "summary": "Create new customer",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Customer created successfully"
+            }
+          }
+        }
+      },
+      "/api/customers/{customer_id}": {
+        "get": {
+          "tags": ["Customers"],
+          "summary": "Get customer by ID",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "customer_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Customer details"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Customers"],
+          "summary": "Update customer",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "customer_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Customer updated successfully"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Customers"],
+          "summary": "Delete customer",
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "parameters": [
+            {
+              "name": "customer_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Customer deleted successfully"
+            }
+          }
+        }
+      },
+      "/api/sales": {
+        "get": {
+          "tags": ["Sales"],
+          "summary": "Get all sales",
+          "responses": {
+            "200": {
+              "description": "List of sales"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Sales"],
+          "summary": "Create new sale",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "customer_id": {
+                      "type": "string"
+                    },
+                    "amount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Sale created successfully"
+            }
+          }
+        }
+      },
+      "/api/sales/{sale_id}": {
+        "get": {
+          "tags": ["Sales"],
+          "summary": "Get sale by ID",
+          "parameters": [
+            {
+              "name": "sale_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Sale details"
+            }
+          }
+        }
+      },
+      "/api/sale-stages": {
+        "post": {
+          "tags": ["Sales"],
+          "summary": "Create new sale stage",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sale_id": {
+                      "type": "string"
+                    },
+                    "stage": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Sale stage created successfully"
+            }
+          }
+        }
+      },
+      "/api/sales/{sale_id}/last-stage": {
+        "get": {
+          "tags": ["Sales"],
+          "summary": "Get last stage of a sale",
+          "parameters": [
+            {
+              "name": "sale_id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Last stage details"
+            }
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "5003:5003"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - CUSTOMER_SERVICE_URL=http://customer-service:5001
+      - SALES_SERVICE_URL=http://sales-service:5002
+      - AUTH_SERVICE_URL=http://auth-service:5000
+    depends_on:
+      - customer-service
+      - sales-service
+      - auth-service
+
+  customer-service:
+    build: ./customer-service
+    ports:
+      - "5001:5001"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - MONGODB_URI=mongodb://mongodb:27017/customer-db
+    depends_on:
+      - mongodb
+
+  sales-service:
+    build: ./sales-service
+    ports:
+      - "5002:5002"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/salesdb
+    depends_on:
+      - postgres
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/authdb
+      - JWT_SECRET=your-secret-key
+    depends_on:
+      - postgres
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongodb_data:
+  postgres_data: 
