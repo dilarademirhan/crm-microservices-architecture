@@ -1,9 +1,11 @@
 import requests
 from flask import request, jsonify
 from functools import wraps
-from config import Config
+from ..config.config import Config
+import os
 
-AUTH_SERVICE_URL = Config.AUTH_SERVICE_URL
+AUTH_SERVICE_URL = os.getenv('AUTH_SERVICE_URL', 'http://auth-service:5000' if 'DOCKER' in os.environ else 'http://127.0.0.1:5000') 
+
 
 def sales_rep_required(f):
     @wraps(f)

@@ -7,13 +7,21 @@ class Config:
     
     # JWT
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'jwt_secret_key')
-    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=int(os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES', 30)))
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=int(os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES', 6000)))
+    JWT_TOKEN_LOCATION = 'headers'
+    JWT_HEADER_NAME = 'Authorization'
+    JWT_HEADER_TYPE = 'Bearer'
+
     
     # Service URLs
-    AUTH_SERVICE_URL = os.getenv('AUTH_SERVICE_URL', 'http://127.0.0.1:5000')
-    CUSTOMER_SERVICE_URL = os.getenv('CUSTOMER_SERVICE_URL', 'http://127.0.0.1:5001')
+
+    IS_DOCKER = 'DOCKER' in os.environ 
+
+    AUTH_SERVICE_URL = os.getenv('AUTH_SERVICE_URL', 'http://auth-service:5000' if 'DOCKER' in os.environ else 'http://127.0.0.1:5000') 
+    CUSTOMER_SERVICE_URL = os.getenv('CUSTOMER_SERVICE_URL', 'http://customer-service:5001' if 'DOCKER' in os.environ else 'http://127.0.0.1:5001') 
     SALES_SERVICE_URL = os.getenv('SALES_SERVICE_URL', 'http://sales-service:5002' if 'DOCKER' in os.environ else 'http://127.0.0.1:5002')    
-    # API
+
+
     API_TITLE = 'CRM API Gateway'
     API_VERSION = 'v1'
     OPENAPI_VERSION = '3.0.2'

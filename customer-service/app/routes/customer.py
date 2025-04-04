@@ -9,7 +9,7 @@ from functools import wraps
 
 customer_bp = Blueprint('customer', __name__)
 
-@customer_bp.route('/', methods=['POST'])
+@customer_bp.route('', methods=['POST'])
 @jwt_required()
 @sales_rep_required
 def create_customer():
@@ -42,34 +42,26 @@ def get_customers():
     sort_by = request.args.get('sort_by', 'created_at')
     order = request.args.get('order', 'desc')
     
-    # Başlangıçta boş bir sorgu oluşturuluyor
     query = Q()
     
-    # Eğer search parametresi varsa, sorguya arama ekleniyor
     if search:
         query &= (Q(name__icontains=search) | Q(email__icontains=search) | Q(company__icontains=search))
     
-    # Müşterileri sorgulama
     customers = Customer.objects(query)
-    print(customers)  # Debugging: Kontrol etmek için çıktıyı yazdır
     
-    # Sıralama işlemi
     if order == 'desc':
         customers = customers.order_by(f'-{sort_by}')
     else:
         customers = customers.order_by(sort_by)
     
-    # Sayfalama işlemi
     customers = customers.skip((page - 1) * per_page).limit(per_page)
     
-    # Müşterileri JSON formatına dönüştürüp döndürme
     return jsonify({
         'customers': [customer.to_dict() for customer in customers],
-        'total': Customer.objects(query).count(),  # Toplam müşteri sayısını al
+        'total': Customer.objects(query).count(),  
         'page': page,
         'per_page': per_page
     })
-
 
 
 @customer_bp.route('/<customer_id>', methods=['GET'])
@@ -215,13 +207,11 @@ def get_notes():
     
     notes = Note.objects(query)
     
-    # Apply sorting
     if order == 'desc':
         notes = notes.order_by(f'-{sort_by}')
     else:
         notes = notes.order_by(sort_by)
     
-    # Apply pagination
     notes = notes.skip((page - 1) * per_page).limit(per_page)
     
     return jsonify({

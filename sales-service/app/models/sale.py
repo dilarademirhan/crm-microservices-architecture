@@ -12,7 +12,6 @@ class Sale(BaseModel):
     product = Column(String(100), nullable=False)
     amount = Column(String(50), nullable=False)
 
-    # One-to-Many ilişki
     stages = relationship('SaleStage', back_populates='sale', cascade="all, delete-orphan", lazy=True)
 
     def to_dict(self):

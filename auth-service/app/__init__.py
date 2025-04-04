@@ -2,7 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
-from config import Config
+from .config.config import Config
 from .routes.auth import auth_bp
 from .extensions import jwt, db
 from flasgger import Swagger

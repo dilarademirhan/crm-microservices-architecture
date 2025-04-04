@@ -23,7 +23,7 @@ services:
     environment:
       - FLASK_APP=run.py
       - FLASK_ENV=development
-      - MONGODB_URI=mongodb://mongodb:27017/customer-db
+      - MONGODB_URL=mongodb://mongodb:27017/customer-db
     depends_on:
       - mongodb
 
@@ -45,7 +45,7 @@ services:
     environment:
       - FLASK_APP=run.py
       - FLASK_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/authdb
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/userdb
       - JWT_SECRET=your-secret-key
     depends_on:
       - postgres

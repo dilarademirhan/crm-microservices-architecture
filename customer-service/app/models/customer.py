@@ -12,7 +12,7 @@ class Customer(BaseModel):
     phone = StringField(required=True)
     company = StringField()
     address = StringField()
-    notes = ListField(ReferenceField(Note, reverse_delete_rule=2))  # lazy_load=False kaldırıldı
+    notes = ListField(ReferenceField(Note, reverse_delete_rule=2))  
     tags = ListField(StringField())
     metadata = DictField()
     

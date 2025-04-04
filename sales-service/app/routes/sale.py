@@ -3,21 +3,8 @@ from flask import Blueprint, request, jsonify
 from ..models.sale import Sale
 from ..models.sale_stage import SaleStage
 from ..models.base import db
-from flask_restful import Api, Resource
-
 
 sale_bp = Blueprint('sale', __name__)
-
-# api = Api(sale_bp)  # Flask-RESTful API'yi Blueprint'e bağla
-
-# class SalesResource(Resource):
-#     def get(self):
-#         try:
-#             sales = Sale.query.all()
-#             return jsonify([sale.to_dict() for sale in sales]), 200
-#         except Exception as e:
-#             return jsonify({'error': str(e)}), 500
-# api.add_resource(SalesResource, '/') 
 
 @sale_bp.route('/', methods=['GET'])
 def get_sales():

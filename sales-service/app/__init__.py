@@ -2,11 +2,9 @@ from flask import Flask
 from flask_migrate import Migrate
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
-from config import Config
+from .config.config import Config
 from .routes.sale import sale_bp
 from .extensions import jwt, db
-# from flask_restful import Api, Resource
-from flasgger import Swagger
 
 
 def create_app():
@@ -19,12 +17,6 @@ def create_app():
     db.init_app(app)
     Migrate(app, db)
     CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-
-    # api = Api(sale_bp) 
-
-
-    # api.add_resource(SalesResource, '/') 
 
     # Swagger UI
     SWAGGER_URL = '/api/docs'

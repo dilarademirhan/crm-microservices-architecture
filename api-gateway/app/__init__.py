@@ -15,6 +15,7 @@ def create_app(config_class=Config):
     
     # Initialize JWT
     jwt.init_app(app)
+
     
     # Swagger UI
     SWAGGER_URL = '/api/docs'
