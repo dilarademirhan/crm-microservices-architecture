@@ -65,43 +65,6 @@ Her servis için Swagger UI dokümantasyonu mevcuttur:
 - Sales Service: http://localhost:5002/api/docs
 - Auth Service: http://localhost:5000/api/docs
 
-## 🔧 Servis Yapılandırması
-
-### Environment Variables
-
-Her servis için gerekli environment variable'lar:
-
-#### API Gateway
-```
-FLASK_APP=run.py
-FLASK_ENV=development
-CUSTOMER_SERVICE_URL=http://customer-service:5001
-SALES_SERVICE_URL=http://sales-service:5002
-AUTH_SERVICE_URL=http://auth-service:5000
-```
-
-#### Customer Service
-```
-FLASK_APP=run.py
-FLASK_ENV=development
-MONGODB_URI=mongodb://mongodb:27017/customer-db
-```
-
-#### Sales Service
-```
-FLASK_APP=run.py
-FLASK_ENV=development
-DATABASE_URL=postgresql://postgres:postgres@postgres:5432/salesdb
-```
-
-#### Auth Service
-```
-FLASK_APP=run.py
-FLASK_ENV=development
-DATABASE_URL=postgresql://postgres:postgres@postgres:5432/authdb
-JWT_SECRET=jwt_secret_key
-```
-
 ## 📁 Proje Yapısı
 
 ```
