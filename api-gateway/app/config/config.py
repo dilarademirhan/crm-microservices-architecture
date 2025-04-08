@@ -15,8 +15,6 @@ class Config:
     
     # Service URLs
 
-    IS_DOCKER = 'DOCKER' in os.environ 
-
     AUTH_SERVICE_URL = os.getenv('AUTH_SERVICE_URL', 'http://auth-service:5000' if 'DOCKER' in os.environ else 'http://127.0.0.1:5000') 
     CUSTOMER_SERVICE_URL = os.getenv('CUSTOMER_SERVICE_URL', 'http://customer-service:5001' if 'DOCKER' in os.environ else 'http://127.0.0.1:5001') 
     SALES_SERVICE_URL = os.getenv('SALES_SERVICE_URL', 'http://sales-service:5002' if 'DOCKER' in os.environ else 'http://127.0.0.1:5002')    

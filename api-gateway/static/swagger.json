@@ -859,44 +859,59 @@
           }
         }
       },
-      "/api/sales": {
-        "get": {
-          "tags": ["Sales"],
-          "summary": "Get all sales",
-          "responses": {
-            "200": {
-              "description": "List of sales"
-            }
-          }
-        },
-        "post": {
-          "tags": ["Sales"],
-          "summary": "Create new sale",
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "customer_id": {
-                      "type": "string"
-                    },
-                    "amount": {
-                      "type": "number"
-                    }
-                  }
-                }
+    "/api/sales": {
+  "get": {
+    "tags": ["Sales"],
+    "summary": "Get all sales",
+    "responses": {
+      "200": {
+        "description": "List of sales"
+      }
+    }
+  },
+  "post": {
+    "tags": ["Sales"],
+    "summary": "Create new sale",
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["customer_id", "name", "product", "amount"],
+            "properties": {
+              "customer_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              },
+              "product": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
               }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Sale created successfully"
             }
           }
         }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Sale created successfully"
       },
+      "400": {
+        "description": "You had missing fields!"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+},
+
       "/api/sales/{sale_id}": {
         "get": {
           "tags": ["Sales"],
@@ -918,7 +933,7 @@
           }
         }
       },
-      "/api/sale-stages": {
+      "/api/sales/sale-stages": {
         "post": {
           "tags": ["Sales"],
           "summary": "Create new sale stage",
@@ -932,7 +947,7 @@
                     "sale_id": {
                       "type": "string"
                     },
-                    "stage": {
+                    "name": {
                       "type": "string"
                     }
                   }

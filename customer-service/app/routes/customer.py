@@ -116,7 +116,7 @@ def delete_customer(customer_id):
         return jsonify({'error': 'Customer not found'}), 404
     
     customer.delete()
-    return '', 204
+    return jsonify({'message': 'Deleted successfully'}), 200
 
 @customer_bp.route('/<customer_id>/notes', methods=['GET'])
 @jwt_required()

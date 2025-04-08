@@ -35,7 +35,7 @@ def create_sale():
         amount = data.get('amount')
 
         if not all([customer_id, name, product, amount]):
-            return jsonify({'error': 'Eksik veri girdiniz!'}), 400
+            return jsonify({'error': 'You must provide all required fields!'}), 400
         
         new_sale = Sale(
             customer_id=uuid.UUID(customer_id),
@@ -49,8 +49,8 @@ def create_sale():
 
         initial_stage = SaleStage(
             sale_id=new_sale.id,
-            name="Yeni",
-            notes="Satış süreci başlatıldı."
+            name='Initial Stage',
+            notes='Initial stage of the sale.'
         )
 
         db.session.add(initial_stage)

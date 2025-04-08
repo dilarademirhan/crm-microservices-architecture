@@ -17,7 +17,7 @@ def get_sale(sale_id):
     response = requests.get(f"{SALES_SERVICE_API_URL}/{sale_id}")
     return jsonify(response.json()), response.status_code
 
-@sale_bp.route('/', methods=['POST'])
+@sale_bp.route('', methods=['POST'])
 def create_sale():
     response = requests.post(f"{SALES_SERVICE_API_URL}", json=request.json)
     return jsonify(response.json()), response.status_code

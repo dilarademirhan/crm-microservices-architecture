@@ -9,11 +9,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    # MongoDB configuration
-    app.config['MONGODB_SETTINGS'] = {
-        'host': os.getenv('MONGODB_URL', 'mongodb://localhost:27017/customer-db')
-    }
-
     # Initialize extensions
     jwt.init_app(app)
     db.init_app(app)

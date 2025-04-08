@@ -9,7 +9,8 @@ customer_bp = Blueprint('customer', __name__, url_prefix='/api/customers')
 
 @customer_bp.route('', methods=['POST'])
 def add_customer():
-    response = requests.post(f"{CUSTOMER_SERVICE_API_URL}", json=request.json)
+    headers = {'Authorization': request.headers.get('Authorization')}
+    response = requests.post(f"{CUSTOMER_SERVICE_API_URL}", json=request.json, headers=headers)
     return jsonify(response.json()), response.status_code
 
 @customer_bp.route('/', methods=['GET'])
