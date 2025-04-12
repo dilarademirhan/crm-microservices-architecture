@@ -59,11 +59,7 @@ docker compose up --build
 
 ### API Dokümantasyonu
 
-Her servis için Swagger UI dokümantasyonu mevcuttur:
 - API Gateway: http://localhost:5003/api/docs
-- Customer Service: http://localhost:5001/api/docs
-- Sales Service: http://localhost:5002/api/docs
-- Auth Service: http://localhost:5000/api/docs
 
 ## 📁 Proje Yapısı
 
