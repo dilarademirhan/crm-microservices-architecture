@@ -47,7 +47,7 @@ services:
       - FLASK_APP=run.py
       - FLASK_ENV=development
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/userdb
-      - JWT_SECRET=your-secret-key
+      - JWT_SECRET=jwt_secret_key
     depends_on:
       - postgres
 
