@@ -43,7 +43,7 @@ Sistem aşağıdaki mikroservislerden oluşmaktadır:
 1. Projeyi klonlayın:
 ```bash
 git clone https://github.com/dilarademirhan/crm-microservices-architecture.git
-cd crm-microservices
+cd crm-microservices-architecture
 ```
 
 2. Docker container'larını başlatın:
