@@ -42,7 +42,7 @@ Sistem aşağıdaki mikroservislerden oluşmaktadır:
 
 1. Projeyi klonlayın:
 ```bash
-git clone https://github.com/yourusername/crm-microservices.git
+git clone https://github.com/dilarademirhan/crm-microservices.git
 cd crm-microservices
 ```
 
